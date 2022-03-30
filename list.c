@@ -32,7 +32,7 @@ void list_print(list_t *l) {
   node_t *cur = l->head;
   
   while(cur != NULL){
-    printf("%d", cur->value);
+    printf("%d ", cur->value);
     cur = cur->next;
   }
 }
@@ -137,48 +137,37 @@ elem list_remove_at_index(list_t *l, int index) {
 bool list_is_in(list_t *l, elem value) {
   node_t *cur = l->head;
   while(cur != NULL){
-    if(l->head->value != value){
-      l->head = l->head->next;
-    }
-    else{
-      l->head = cur;
+    if(cur->value == value){
       return true;
     }
+    cur = cur->next;
   }
-  l->head = cur;
   return false;
 }
 
 elem list_get_elem_at(list_t *l, int index) { 
   node_t *cur = l->head;
-  int count = 0;
-  elem index_value;
-  while(cur != NULL){
-    if(index != 0){
-      l->head = l->head->next;
+  int l_ind = 0;
+  while (cur != NULL){
+    if(l_ind == index){
+      return cur->value;
     }
-    else{
-      index_value = l->head->value;
-      l->head = cur;
-    }
-    index -=1;
+    l_ind++;
+    cur = cur->next;
   }
-  l->head = cur;
   return -1;
 }
 
 int list_get_index_of(list_t *l, elem value) { 
   node_t *cur = l->head;
-  while (l->head != NULL){
-    if(l->head->value != value){
-      l->head = l->head->next;
+  int index = 0;
+  while(cur != NULL){
+    if(cur->value == value){
+      return index;
     }
-    else{
-      l->head = cur;
-      return true;
-    }
+    index++;
+    cur = cur->next;
   }
-  l->head = cur;
-  return false;
+  return -1;
 }
 
